@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import SceneBg from './assets/bg.jpg';
+import Chicken from './assets/chicken.webm';
 import Dinosaur from './assets/dinosaur.webm';
 import Button from '@mui/material/Button';
 
@@ -13,8 +14,9 @@ const App = ({ className }: Props) => {
   const rightDinoRef = useRef<HTMLVideoElement>(null);
   const [isLooping, setIsLooping] = useState(false);
 
-  const handleAttack = (ref: React.RefObject<HTMLVideoElement>) => {
+  const handleAttack = (ref: React.RefObject<HTMLVideoElement>, rate?: number) => {
     if (ref.current) {
+      ref.current.playbackRate = rate || 1;
       ref.current.currentTime = 0; // Start from the beginning
       ref.current.play();
 
@@ -24,9 +26,10 @@ const App = ({ className }: Props) => {
           ref.current.pause();
           ref.current.currentTime = 0; // Reset to the beginning
         }
-      }, 4000); // 4000ms = 4 seconds
+      }, 1500); // 4000ms = 4 seconds
     }
   };
+
 
   const toggleLoop = () => {
     setIsLooping((prev) => !prev);
@@ -63,7 +66,7 @@ const App = ({ className }: Props) => {
         ref={leftDinoRef}
         muted
         playsInline
-        src={Dinosaur}
+        src={Chicken}
         style={{ left: '0px',  bottom: '20%'  }}
       />
       <AttackButton
@@ -86,7 +89,7 @@ const App = ({ className }: Props) => {
       <AttackButton
         variant="contained"
         color="secondary"
-        onClick={() => handleAttack(rightDinoRef)}
+        onClick={() => handleAttack(rightDinoRef, 3.5)}
         style={{ right: '10px', top: '10%' }}
       >
         Right Dino Attack
