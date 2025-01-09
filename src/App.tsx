@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import SceneBg from './assets/bg.jpg';
-import Chicken from './assets/chicken.webm';
+import Chicken from './assets/chicken.mov';
 import Dinosaur from './assets/dinosaur.webm';
 import Button from '@mui/material/Button';
 
@@ -61,7 +61,6 @@ const App = ({ className }: Props) => {
 
   return (
     <Wrapper className={className}>
-      {/* Left Dinosaur */}
       <TransparentVideo
         ref={leftDinoRef}
         muted
@@ -78,7 +77,6 @@ const App = ({ className }: Props) => {
         Left Dino Attack
       </AttackButton>
 
-      {/* Right Dinosaur */}
       <TransparentVideo
         ref={rightDinoRef}
         muted
@@ -95,7 +93,6 @@ const App = ({ className }: Props) => {
         Right Dino Attack
       </AttackButton>
 
-      {/* Toggler for Looping */}
       <ToggleButton
         variant="contained"
         color="success"
@@ -122,7 +119,7 @@ const Wrapper = styled.div`
 `;
 
 const TransparentVideo = styled.video`
-    width: 40%; /* Adjust size as needed */
+    width: 40%; 
     height: auto;
     position: absolute;
     bottom: 0;
