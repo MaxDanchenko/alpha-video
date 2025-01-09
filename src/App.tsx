@@ -1,8 +1,10 @@
 import { useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import SceneBg from './assets/bg.jpg';
-import Chicken from './assets/chicken.mov';
-import Dinosaur from './assets/dinosaur.webm';
+import Chicken from './assets/Chicken.webm';
+import ChickenQT from './assets/Chicken.mov';
+import Medusa from './assets/Medusa.webm';
+import MedusaQT from './assets/Medusa.mov';
 import Button from '@mui/material/Button';
 
 type Props = {
@@ -20,54 +22,51 @@ const App = ({ className }: Props) => {
       ref.current.currentTime = 0; // Start from the beginning
       ref.current.play();
 
-      // Pause the video after 4 seconds and reset it to 0:00
+      // Pause the video after 1.5 seconds and reset it to 0:00
       setTimeout(() => {
         if (ref.current) {
           ref.current.pause();
           ref.current.currentTime = 0; // Reset to the beginning
         }
-      }, 1500); // 4000ms = 4 seconds
+      }, 1500); // 1500ms = 1.5 seconds
     }
   };
 
+  const startLooping = (ref: React.RefObject<HTMLVideoElement>) => {
+    if (ref.current) {
+      ref.current.loop = true;
+      ref.current.play();
+    }
+  };
+  const stopLooping = (ref: React.RefObject<HTMLVideoElement>) => {
+    if (ref.current) {
+      ref.current.loop = false;
+      ref.current.pause();
+      ref.current.currentTime = 0;
+    }
+  };
 
   const toggleLoop = () => {
     setIsLooping((prev) => !prev);
 
     if (!isLooping) {
       // Start looping both videos
-      if (leftDinoRef.current) {
-        leftDinoRef.current.loop = true;
-        leftDinoRef.current.play();
-      }
-      if (rightDinoRef.current) {
-        rightDinoRef.current.loop = true;
-        rightDinoRef.current.play();
-      }
+      startLooping(leftDinoRef);
+      startLooping(rightDinoRef);
     } else {
       // Stop looping and reset both videos
-      if (leftDinoRef.current) {
-        leftDinoRef.current.loop = false;
-        leftDinoRef.current.pause();
-        leftDinoRef.current.currentTime = 0;
-      }
-      if (rightDinoRef.current) {
-        rightDinoRef.current.loop = false;
-        rightDinoRef.current.pause();
-        rightDinoRef.current.currentTime = 0;
-      }
+      stopLooping(leftDinoRef);
+      stopLooping(rightDinoRef);
     }
   };
 
   return (
     <Wrapper className={className}>
-      <TransparentVideo
-        ref={leftDinoRef}
-        muted
-        playsInline
-        src={Chicken}
-        style={{ left: '0px',  bottom: '20%'  }}
-      />
+      <TransparentVideo ref={leftDinoRef} muted playsInline style={{ left: '0px', bottom: '20%' }}>
+        <source src={MedusaQT} type="video/quicktime" />
+        <source src={Medusa} type="video/webm" />
+        Non
+      </TransparentVideo>
       <AttackButton
         variant="contained"
         color="primary"
@@ -77,13 +76,10 @@ const App = ({ className }: Props) => {
         Left Dino Attack
       </AttackButton>
 
-      <TransparentVideo
-        ref={rightDinoRef}
-        muted
-        playsInline
-        src={Dinosaur}
-        style={{ right: '0px', bottom: '20%' }}
-      />
+      <TransparentVideo ref={rightDinoRef} muted playsInline style={{ right: '0px', bottom: '20%' }}>
+        <source src={ChickenQT} type="video/quicktime" />
+        <source src={Chicken} type="video/webm" />
+      </TransparentVideo>
       <AttackButton
         variant="contained"
         color="secondary"
