@@ -83,7 +83,7 @@ const App = ({ className }: Props) => {
       <AttackButton
         variant="contained"
         color="secondary"
-        onClick={() => handleAttack(rightDinoRef, 3.5)}
+        onClick={() => handleAttack(rightDinoRef)}
         style={{ right: '10px', top: '10%' }}
       >
         Right Dino Attack
